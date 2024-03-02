@@ -1,9 +1,9 @@
-Hello whoever is viewing this project!
+Hello! This is my initial draft of a chess engine from scratch in Java.
 
 I enjoy Chess, so I wanted to see what I could do with it programmatically, and as it turns out, I made a formidable opponent (sometimes).
 
-If you lose to your own chess bot, should you be happy or sad? I totally couldn't answer this question :).
+If you lose to your own chess bot, should you be happy or sad? I totally couldn't answer this question.
 
-This project has lots of work before completion, mainly evaluation, hashing, transpositions, minimax, and multi-threading functionality tweaks. As well as improvements in the GUI and a addition of a opening book.
+This project has lots of work before completion, mainly evaluation, hashing, transpositions, minimax, and multi-threading functionality tweaks. As well as improvements in the GUI and a addition of an opening book.
 
 As of now, this bot performs around 1600 elo at a depth of 6.

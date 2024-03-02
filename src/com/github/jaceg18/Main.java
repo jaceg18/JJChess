@@ -1,6 +1,7 @@
 package com.github.jaceg18;
 
 import com.github.jaceg18.chess.game.Bitboard;
+import com.github.jaceg18.chess.game.moves.strategy.CaptureCastleOrder;
 import com.github.jaceg18.chess.ui.GamePanel;
 import com.github.jaceg18.chess.util.SettingsDialog;
 import com.github.jaceg18.chess.util.styles.*;
@@ -29,12 +30,16 @@ public class Main {
         settingsDialog.setVisible(true);
 
         String boardDesign = settingsDialog.getSelectedBoardDesign();
-        BoardStyle[] availableBoards = {new GradientBoard(), new ClearBoard(), new CopperIllusionBoard(), new MarbleBoard(), new RainbowBoard(), new RigidBoard(), new SpaceBoard()};
+        BoardStyle[] availableBoards = {
+                new GradientBoard(), new ClearBoard(), new CopperIllusionBoard(),
+                new MarbleBoard(), new RainbowBoard(), new RigidBoard(), new SpaceBoard()
+        };
 
-        BoardStyle selectedStyle = availableBoards[0]; // default
+        BoardStyle selectedStyle = availableBoards[0]; // Default style
 
         for (BoardStyle availableBoard : availableBoards) {
-            if (availableBoard.getClass().getSimpleName().toLowerCase().contains(boardDesign.toLowerCase())) {
+            if (availableBoard.getClass().getSimpleName().toLowerCase()
+                    .contains(boardDesign.toLowerCase())) {
                 selectedStyle = availableBoard;
                 break;
             }
@@ -42,8 +47,7 @@ public class Main {
 
         int aiDepth = settingsDialog.getSelectedAIDepth();
 
-
-        Bitboard board = new Bitboard();
+        Bitboard board = new Bitboard(new CaptureCastleOrder());
         GamePanel gamePanel = new GamePanel(board, true, aiDepth, selectedStyle);
 
         frame.add(gamePanel);
@@ -52,5 +56,4 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 }

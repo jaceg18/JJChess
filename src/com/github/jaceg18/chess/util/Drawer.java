@@ -6,10 +6,8 @@ import com.github.jaceg18.chess.game.pieces.PieceType;
 import com.github.jaceg18.chess.ui.GamePanel;
 import com.github.jaceg18.chess.ui.Textures;
 import com.github.jaceg18.chess.util.styles.BoardStyle;
-import com.github.jaceg18.chess.util.styles.*;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.List;

@@ -3,6 +3,7 @@ package com.github.jaceg18.chess.game;
 import com.github.jaceg18.chess.game.moves.Move;
 import com.github.jaceg18.chess.game.moves.MoveGenerator;
 import com.github.jaceg18.chess.game.moves.MoveLog;
+import com.github.jaceg18.chess.game.moves.strategy.OrderingStrategy;
 import com.github.jaceg18.chess.game.pieces.PieceType;
 import com.github.jaceg18.chess.util.BitboardUtils;
 
@@ -11,21 +12,21 @@ import java.util.List;
 
 public class Bitboard {
     // SWITCH THIS TO ENUM MAP
-    private long whitePawns,
-            whiteKnights,
-            whiteBishops,
-            whiteRooks,
-            whiteQueens,
-            whiteKing,
-            blackPawns,
-            blackKnights,
-            blackBishops,
-            blackRooks,
-            blackQueens,
-            blackKing,
-            whitePieces,
-            blackPieces,
-            occupiedSquares;
+    private long whitePawns;
+    private long whiteKnights;
+    private long whiteBishops;
+    private long whiteRooks;
+    private long whiteQueens;
+    private long whiteKing;
+    private long blackPawns;
+    private long blackKnights;
+    private long blackBishops;
+    private long blackRooks;
+    private long blackQueens;
+    private long blackKing;
+    private long whitePieces;
+    private long blackPieces;
+    private long occupiedSquares;
     private int castlingRights = 0b1111;
     private final MoveGenerator moveGenerator;
     private List<Move> moveList = new ArrayList<>();
@@ -36,9 +37,9 @@ public class Bitboard {
     /**
      * Constructor that creates a bitboard for our chess game
      */
-    public Bitboard() {
+    public Bitboard(OrderingStrategy moveOrderingStrategy) {
         setupBoard();
-        this.moveGenerator = new MoveGenerator(this);
+        this.moveGenerator = new MoveGenerator(this, moveOrderingStrategy);
     }
 
     /**
@@ -107,7 +108,6 @@ public class Bitboard {
                 Long.bitCount(whiteRooks) + Long.bitCount(whiteQueens) + Long.bitCount(whiteKing) +
                 Long.bitCount(blackPawns) + Long.bitCount(blackKnights) + Long.bitCount(blackBishops) +
                 Long.bitCount(blackRooks) + Long.bitCount(blackQueens) + Long.bitCount(blackKing);
-        System.out.println(pieceCount);
         return pieceCount;
     }
 
@@ -291,7 +291,9 @@ public class Bitboard {
         long toPosition = 1L << to;
         boolean isToPositionKing = (toPosition & (whiteKing | blackKing)) != 0;
         boolean isCapture = getPieceAtSquare(to, !isWhite) != null;
-        Move move = new Move(from, to, isCapture, isWhite);
+        PieceType pieceAtSquare = getPieceAtSquare(from, isWhite);
+        boolean isCastleMove = Math.abs(from - to) == 2 && pieceAtSquare.name().toLowerCase().contains("king");
+        Move move = new Move(from, to, isCapture, isWhite, isCastleMove);
         boolean leavesKingInCheck = isKingInCheckAfterMove(move, isWhite);
 
         if (!isToPositionKing && !leavesKingInCheck) {
@@ -394,7 +396,7 @@ public class Bitboard {
         return null; // No piece at the given square for the specified color
     }
 
-    // PRETEND THERE IS LIKE 20 GETTERS AND SETTERS HERE! LEFT OUT FOR LENGTH
+    // Getters and Setters
     public long getWhitePawns() {
         return whitePawns;
     }

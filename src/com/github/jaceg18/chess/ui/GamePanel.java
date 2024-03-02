@@ -1,7 +1,7 @@
 package com.github.jaceg18.chess.ui;
 
 import com.github.jaceg18.chess.audio.AudioPlayer;
-import com.github.jaceg18.chess.engine.AI;
+import com.github.jaceg18.chess.engine.Ai;
 import com.github.jaceg18.chess.game.Bitboard;
 import com.github.jaceg18.chess.game.moves.Move;
 import com.github.jaceg18.chess.game.pieces.PieceType;
@@ -10,7 +10,6 @@ import com.github.jaceg18.chess.util.styles.BoardStyle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +28,7 @@ public class GamePanel extends JPanel {
     private boolean isDragging;
     private int selectedSquare;
     private List<Move> legalMoves;
-    private final AI aiPlayer;
+    private final Ai aiPlayer;
 
     /**
      * Constructs a GamePanel with specified settings.
@@ -44,7 +43,7 @@ public class GamePanel extends JPanel {
         this.isDragging = false;
         this.selectedSquare = -1;
         this.legalMoves = new ArrayList<>();
-        this.aiPlayer = new AI(bitboard, !isPlayerWhite, MAX_DEPTH, 1);
+        this.aiPlayer = new Ai(bitboard, !isPlayerWhite, MAX_DEPTH);
         setPreferredSize(new Dimension(Drawer.BOARD_SIZE, Drawer.BOARD_SIZE));
         setFocusable(true);
 

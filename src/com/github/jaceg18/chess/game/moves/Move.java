@@ -5,11 +5,13 @@ public class Move {
     long to;
     boolean isCapture;
     boolean isWhite;
-    public Move(long from, long to, boolean isCapture, boolean isWhite){
+    boolean isCastle;
+    public Move(long from, long to, boolean isCapture, boolean isWhite, boolean isCastle){
         this.from = from;
         this.to = to;
         this.isCapture = isCapture;
         this.isWhite = isWhite;
+        this.isCastle = isCastle;
     }
 
     public long getFrom(){
@@ -24,6 +26,9 @@ public class Move {
     }
     public boolean isWhite(){
         return isWhite;
+    }
+    public boolean isCastle(){
+        return isCastle;
     }
 
     @Override

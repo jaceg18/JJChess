@@ -14,7 +14,8 @@ public class MoveGenerator {
     private static final int[] KNIGHT_DIRECTIONS = {-17, -15, -10, -6, 6, 10, 15, 17};
     private OrderingStrategy orderingStrategy; // not yet implemented
     private final Bitboard bitboard;
-    public MoveGenerator(Bitboard bitboard){
+    public MoveGenerator(Bitboard bitboard, OrderingStrategy orderingStrategy){
+        this.orderingStrategy = orderingStrategy;
         this.bitboard = bitboard;
     }
     /**
@@ -32,7 +33,7 @@ public class MoveGenerator {
         generateQueenMoves(isWhite);
         generateKingMoves(isWhite);
 
-        return new ArrayList<>(bitboard.getMoveList()); // Return a copy of the move list
+        return orderingStrategy.orderMoves(bitboard.getMoveList()); // Return a copy of the move list
     }
 
     /**
